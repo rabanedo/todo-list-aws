@@ -22,7 +22,6 @@ parameter_overrides = "Stage=\"staging\""
 image_repositories = []
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1wnmrlill20bx"
 
-
 [production]
 [production.deploy]
 [production.deploy.parameters]
