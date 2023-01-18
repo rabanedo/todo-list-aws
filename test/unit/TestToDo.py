@@ -56,7 +56,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn(tableName, self.table.name)
         #self.assertIn('todoTable', self.table_local.name)
         print ('End: test_table_exists')
-        
 
     def test_put_todo(self):
         print ('---------------------')
@@ -80,8 +79,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Table mock
         self.assertRaises(Exception, put_item("", self.dynamodb))
         self.assertRaises(Exception, put_item("", self.dynamodb))
-        print ('End: test_put_todo_error')
-
+        print ('End: test_put_todo_error')   
+        
     def test_get_todo(self):
         print ('---------------------')
         print ('Start: test_get_todo')
@@ -104,6 +103,15 @@ class TestDatabaseFunctions(unittest.TestCase):
             responseGet['text'])
         print ('End: test_get_todo')
     
+    def test_get_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_error')
+        # Testing file functions
+        from src.todoList import get_item
+        # Table mock
+        self.assertRaises(Exception, get_item("", self.dynamodb))
+        print ('End: test_get_todo_error')
+    
     def test_list_todo(self):
         print ('---------------------')
         print ('Start: test_list_todo')
@@ -119,6 +127,14 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(result[0]['text'] == self.text)
         print ('End: test_list_todo')
 
+    def test_list_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_list_todo_error')
+        # Testing file functions
+        from src.todoList import get_items
+        # Table mock
+        self.assertRaises(Exception, get_items("", self.dynamodb))
+        print ('End: test_list_todo_error')
 
     def test_update_todo(self):
         print ('---------------------')
@@ -199,5 +215,5 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
 
-if __name__ == '__main__': # pragma: no cover
+if __name__ == '__main__': pragma: no cover
     unittest.main()
