@@ -1,6 +1,4 @@
-
-        delete_item(idItem, self.dynamodb)
-        print ('Item deleted succesfullyimport warnings
+import warnings
 import unittest
 import boto3
 from moto import mock_dynamodb
@@ -202,17 +200,4 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('End: test_delete_todo_error')
 
 if __name__ == '__main__':
-    unittest.main()
-        self.assertTrue(len(get_items(self.dynamodb)) == 0)
-        print ('End: test_delete_todo')
-
-    def test_delete_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_delete_todo_error')
-        from src.todoList import delete_item
-        # Testing file functions
-        self.assertRaises(TypeError, delete_item("", self.dynamodb))
-        print ('End: test_delete_todo_error')
-
-if __name__ == '__main__': # pragma: no cover
     unittest.main()
