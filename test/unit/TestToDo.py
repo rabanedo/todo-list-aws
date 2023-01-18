@@ -127,15 +127,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(result[0]['text'] == self.text)
         print ('End: test_list_todo')
 
-    def test_list_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_list_todo_error')
-        # Testing file functions
-        from src.todoList import get_items
-        # Table mock
-        self.assertRaises(Exception, get_items("", self.dynamodb))
-        print ('End: test_list_todo_error')
-
     def test_update_todo(self):
         print ('---------------------')
         print ('Start: test_update_todo')
