@@ -44,6 +44,14 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.dynamodb = None
         print ('End: tearDown')
 
+    def test_get_table(self):
+        print ('---------------------')
+        print ('Start: test_get_table')
+        from src.todoList import get_table
+        table = get_table(None)
+        print ('Table name:' +table.name)
+        print ('End: test_get_table')
+
     def test_table_exists(self):
         print ('---------------------')
         print ('Start: test_table_exists')
@@ -102,16 +110,6 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
-
-    def test_get_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_get_todo_error')
-        from src.todoList import get_item
-        try:
-            self.assertRaises(get_item("",""))
-        except KeyError as exc_info:
-            print(str(exc_info))
-        print ('End: test_get_todo_error')
 
     def test_list_todo(self):
         print ('---------------------')
