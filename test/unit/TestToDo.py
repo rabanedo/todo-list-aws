@@ -80,8 +80,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_put_todo_error')
         # Testing file functions
         from src.todoList import put_item
+        from unittest.mock import Mock #Se importa la librería Mock
         # Table mock
-        self.assertRaises(Exception, put_item("", self.dynamodb))
+        self.table = Mock() #Se llama a la función Mock para mockear la tabla
+        self.table.put_item.raiseError.side_effect = Mock(side_effect=Exception('Raise Exception')) # Si no se puede insertar se mockea la excepción
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
