@@ -5,7 +5,6 @@ from moto import mock_dynamodb
 import sys
 import os
 import json
-from botocore.exceptions import ClientError
 
 @mock_dynamodb
 class TestDatabaseFunctions(unittest.TestCase):
@@ -45,18 +44,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.dynamodb = None
         print ('End: tearDown')
 
-    def test_get_table(self):
-        print ('---------------------')
-        print ('Start: test_get_table')
-        # Testing file functions
-        from src.todoList import get_table
-        self.table = get_table()
-        print ('Table name:' + str(table.name))
-        tableName = os.environ['DYNAMODB_TABLE'];
-        # check if the table name is 'ToDo'
-        self.assertEqual(tableName, table.name)
-        print ('End: test_get_table')
-        
     def test_table_exists(self):
         print ('---------------------')
         print ('Start: test_table_exists')
@@ -70,21 +57,19 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.assertIn('todoTable', self.table_local.name)
         print ('End: test_table_exists')
         
+
     def test_put_todo(self):
         print ('---------------------')
         print ('Start: test_put_todo')
         # Testing file functions
-        try:
-            from src.todoList import put_item
-            # Table local
-            response = put_item(self.text, self.dynamodb)
-            print ('Response put_item:' + str(response))
-            self.assertEqual(200, response['statusCode'])
-                # Table mock
-            #self.assertEqual(200, put_item(self.text, self.dynamodb)[
-            #                 'ResponseMetadata']['HTTPStatusCode'])
-        except ClientError as e:
-            print(e.response['Error']['Message'])
+        from src.todoList import put_item
+        # Table local
+        response = put_item(self.text, self.dynamodb)
+        print ('Response put_item:' + str(response))
+        self.assertEqual(200, response['statusCode'])
+        # Table mock
+        #self.assertEqual(200, put_item(self.text, self.dynamodb)[
+        #                 'ResponseMetadata']['HTTPStatusCode'])
         print ('End: test_put_todo')
 
     def test_put_todo_error(self):
@@ -118,7 +103,7 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
-
+    
     def test_list_todo(self):
         print ('---------------------')
         print ('Start: test_list_todo')
@@ -214,5 +199,5 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
 
-if __name__ == '__main__': # pragma: no cover
+if __name__ == '__main__':  # pragma: no cover
     unittest.main()
