@@ -80,9 +80,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_put_todo_error')
         # Testing file functions
         from src.todoList import put_item
-        from unittest.mock import Mock #Se importa la librería Mock
+        from unittest.mock import Mock # Se importa la librería Mock
         # Table mock
-        self.table = Mock() #Se llama a la función Mock para mockear la tabla
+        self.table = Mock() # Se llama a la función Mock para mockear la tabla
         self.table.put_item.raiseError.side_effect = Mock(side_effect=Exception('Raise Exception')) # Si no se puede insertar se mockea la excepción
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
@@ -151,9 +151,13 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: atest_update_todo_error')
         from src.todoList import put_item
         from src.todoList import update_item
+        from unittest.mock import Mock # Se importa la librería Mock
         updated_text = "Aprender más cosas que DevOps y Cloud en la UNIR"
         # Testing file functions
         # Table mock
+        self.table = Mock() # Se llama a la función Mock para mockear la tabla
+        self.table.put_item.raiseError.side_effect = Mock(side_effect=Exception('Raise Exception')) # Si no se puede insertar se mockea la excepción
+        self.assertRaises(Exception, put_item(self.text, self.dynamodb))
         responsePut = put_item(self.text, self.dynamodb)
         print ('Response PutItem' + str(responsePut))
         self.assertRaises(
