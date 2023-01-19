@@ -50,7 +50,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_table')
         # Testing file functions
         from src.todoList import get_table
-        table = get_table()
+        self.table = get_table()
         print ('Table name:' + str(table.name))
         tableName = os.environ['DYNAMODB_TABLE'];
         # check if the table name is 'ToDo'
