@@ -5,7 +5,6 @@ from moto import mock_dynamodb
 import sys
 import os
 import json
-from botocore.exceptions import ClientError
 from unittest import mock
 
 @mock_dynamodb
