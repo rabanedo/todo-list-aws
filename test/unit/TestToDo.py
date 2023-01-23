@@ -79,7 +79,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         from src.todoList import put_item
         # Table mock
-        self.assertRaises(botocore_exception.ClientError, put_item("", self.dynamodb))
+        self.assertRaises(botocore.exceptions.ClientError, put_item("", self.dynamodb))
         # self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
