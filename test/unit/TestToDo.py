@@ -5,7 +5,6 @@ from moto import mock_dynamodb
 import sys
 import os
 import json
-from botocore.exceptions import ClientError
 
 @mock_dynamodb
 class TestDatabaseFunctions(unittest.TestCase):
@@ -78,8 +77,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_put_todo_error')
         # Testing file functions
         from src.todoList import put_item
+        from botocore.exceptions import ClientError
         # Table mock
-        self.assertRaises(botocore.exceptions.ClientError, put_item("", self.dynamodb))
+        self.assertRaises(ClientError, put_item("", self.dynamodb))
         # self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
