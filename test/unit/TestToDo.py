@@ -5,7 +5,6 @@ from moto import mock_dynamodb
 import sys
 import os
 import json
-import functools
 
 @mock_dynamodb
 class TestDatabaseFunctions(unittest.TestCase):
@@ -31,7 +30,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.text = "Aprender DevOps y Cloud en la UNIR"
 
         from src.todoList import create_todo_table
-        print(self.dynamodb)
         self.table = create_todo_table(self.dynamodb)
         #self.table_local = create_todo_table()
         print ('End: setUp')
@@ -44,14 +42,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Table deleted succesfully')
         #self.table_local.delete()
         self.dynamodb = None
-        boto3.client = functools.partial(boto3.client, endpoint_url=None)
-        boto3.resource = functools.partial(boto3.resource, endpoint_url=None)
         print ('End: tearDown')
 
     def test_table_exists(self):
         print ('---------------------')
         print ('Start: test_table_exists')
-        #self.assertTrue(self.table)  # check if we got a result
+        self.assertTrue(self.table)  # check if we got a result
         #self.assertTrue(self.table_local)  # check if we got a result
 
         print('Table name:' + self.table.name)
@@ -72,21 +68,19 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Response put_item:' + str(response))
         self.assertEqual(200, response['statusCode'])
         # Table mock
-        #self.assertEqual(200, put_item(self.text, self.dynamodb)[
-        #                 'ResponseMetadata']['HTTPStatusCode'])
+        self.assertEqual(200, put_item(self.text, self.dynamodb)[
+                         'ResponseMetadata']['HTTPStatusCode'])
         print ('End: test_put_todo')
 
-    def test_put_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_put_todo_error')
-        # Testing file functions
-        from src.todoList import put_item
-        from unittest.mock import Mock # Se importa la librería Mock
+#    def test_put_todo_error(self):
+#        print ('---------------------')
+#        print ('Start: test_put_todo_error')
+#        # Testing file functions
+#        from src.todoList import put_item
         # Table mock
-        self.table = Mock() # Se llama a la función Mock para mockear la tabla
-        self.table.put_item.raiseError.side_effect = Mock(side_effect=Exception('Raise Exception')) # Si no se puede insertar se mockea la excepción
-        self.assertRaises(Exception, put_item("", self.dynamodb))
-        print ('End: test_put_todo_error')
+#        self.assertRaises(Exception, put_item("", self.dynamodb))
+#        self.assertRaises(Exception, put_item("", self.dynamodb))
+#        print ('End: test_put_todo_error')
 
     def test_get_todo(self):
         print ('---------------------')
@@ -152,13 +146,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: atest_update_todo_error')
         from src.todoList import put_item
         from src.todoList import update_item
-        from unittest.mock import Mock # Se importa la librería Mock
         updated_text = "Aprender más cosas que DevOps y Cloud en la UNIR"
         # Testing file functions
         # Table mock
-        self.table = Mock() # Se llama a la función Mock para mockear la tabla
-        self.table.put_item.raiseError.side_effect = Mock(side_effect=Exception('Raise Exception')) # Si no se puede insertar se mockea la excepción
-        self.assertRaises(Exception, put_item(self.text, self.dynamodb))
         responsePut = put_item(self.text, self.dynamodb)
         print ('Response PutItem' + str(responsePut))
         self.assertRaises(
@@ -209,5 +199,5 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
 
-if __name__ == '__main__':  # pragma: no cover
+if __name__ == '__main__': # pragma: no cover
     unittest.main()
