@@ -199,7 +199,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
-@mock_dynamodb2
+
+
+@mock_dynamodb
 class TestDatabaseFunctionsError(unittest.TestCase):
     def setUp(self):
         print ('---------------------')
