@@ -154,7 +154,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Table mock
         translation = translate_item(self.text, "en", self.dynamodb)
         print ('Response translate en:' + str(translation))
-        self.assertEqual("Learn more than DevOps and Cloud at UNIR", translation)
+        self.assertEqual("Learn DevOps and Cloud at UNIR", translation)
         translation = translate_item(self.text, "fr", self.dynamodb)
         print ('Response translate fr:' + str(translation))
         self.assertEqual("En savoir plus sur DevOps et Cloud à UNIR", translation)
