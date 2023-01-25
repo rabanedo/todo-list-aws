@@ -149,7 +149,6 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
-        self.table = tableName = os.environ['DYNAMODB_TABLE']
         from src.todoList import translate_item
         # Testing file functions
         # Table mock
