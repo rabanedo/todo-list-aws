@@ -1,4 +1,5 @@
 import json
+import decimalencoder
 import todoList
 
 
@@ -10,7 +11,8 @@ def translate(event, context):
     if translation:
         response = {
             "statusCode": 200,
-            "body": json.dumps(translation)
+            "body": json.dumps(translation,
+                               cls=decimalencoder.DecimalEncoder)
         }
     else:
         response = {
