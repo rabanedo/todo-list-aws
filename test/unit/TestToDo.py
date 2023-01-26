@@ -158,13 +158,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Id item:' + idItem)
         responseGet = get_item(idItem, self.dynamodb)
         print ('Response Get:' + str(responseGet))
-        toTranslate = responseGet['text'])
-        translation = get_translate(toTranslate, "en", self.dynamodb)
+        translation = get_translate(responseGet['text'], "en", self.dynamodb)
         print ('Response translate en:' + str(translation))
-        self.assertEqual(toTranslate, translation)
-        translation = get_translate(toTranslate, "fr", self.dynamodb)
+        self.assertEqual(responseGet['text'], translation)
+        translation = get_translate(responseGet['text'], "fr", self.dynamodb)
         print ('Response translate fr:' + str(translation))
-        self.assertEqual(toTranslate, translation)
+        self.assertEqual(responseGet['text'], translation)
         print ('End: test_traslate_todo')
 
 @mock_dynamodb
