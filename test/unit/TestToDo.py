@@ -153,14 +153,10 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import translate_item
         # Testing file functions
         # Table mock
-        responsePut = put_item(self.text, self.dynamodb)
-        print ('Response PutItem' + str(responsePut))
-        textItem = json.loads(responsePut['body'])['text']
-        print ('Text item:' + textItem)
-        translation = translate_item(textItem, "en", self.dynamodb)
+        translation = translate_item("Aprender más cosas que DevOps y Cloud en la UNIR", "en", self.dynamodb)
         print ('Response translate en:' + str(translation))
         self.assertEqual("Learning more than DevOps and Cloud at UNIR", translation)
-        translation = translate_item(textItem, "fr", self.dynamodb)
+        translation = translate_item("Aprender más cosas que DevOps y Cloud en la UNIR", "fr", self.dynamodb)
         print ('Response translate fr:' + str(translation))
         self.assertEqual("En savoir plus sur le DevOps et le Cloud chez UNIR", translation)
         print ('End: test_traslate_todo')
