@@ -6,8 +6,20 @@ import todoList
 def translate(event, context):
     # create a response
     item = todoList.get_item(event['pathParameters']['id'])
-    translation = todoList.translate_item(
-        item['text'], event['pathParameters']['language'])
+    print("##### Parámtros ##### \n\r")
+    print(json.dumps(event['pathParameters'], indent=4))
+    translation = str(
+        todoList.get_translate(
+            item['text'], event['pathParameters']['language']
+        )
+    )
+    item["text"] = translation
+    print("##### Traducció ##### \n\r")
+    print(
+        json.dumps(
+            item["text"], cls=decimalencoder.DecimalEncoder, indent=4
+        )
+    )
     if translation:
         response = {
             "statusCode": 200,
