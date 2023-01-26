@@ -14,7 +14,7 @@ def translate(event, context):
         )
     )
     item["text"] = translation
-    print("##### Traducció ##### \n\r")
+    print("##### Traducción ##### \n\r")
     print(
         json.dumps(
             item["text"], cls=decimalencoder.DecimalEncoder, indent=4
