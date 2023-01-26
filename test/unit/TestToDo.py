@@ -155,12 +155,14 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Table mock
         responsePut = put_item(self.text, self.dynamodb)
         print ('Response PutItem' + str(responsePut))
-        translation = translate_item(self.text, "en", self.dynamodb)
+        textItem = json.loads(responsePut['body'])['text']
+        print ('Text item:' + textItem)
+        translation = translate_item(textItem, "en", self.dynamodb)
         print ('Response translate en:' + str(translation))
-        self.assertEqual("Learn more than DevOps and Cloud at UNIR", translation)
-        translation = translate_item(self.text, "fr", self.dynamodb)
+        self.assertEqual("Learning more than DevOps and Cloud at UNIR", translation)
+        translation = translate_item(textItem, "fr", self.dynamodb)
         print ('Response translate fr:' + str(translation))
-        self.assertEqual("En savoir plus sur DevOps et Cloud à UNIR", translation)
+        self.assertEqual("En savoir plus sur le DevOps et le Cloud chez UNIR", translation)
         print ('End: test_traslate_todo')
 
 @mock_dynamodb
