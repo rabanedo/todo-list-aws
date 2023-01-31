@@ -149,17 +149,18 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
-        from src.todoList import get_translate
+        self.table = os.environ['DYNAMODB_TABLE']
+        from src.todoList import translate_item
         # Testing file functions
-        # Table mock
-        translation = get_translate(self.text, "en", self.dynamodb)
+        translation = translate_item(self.text, "en", self.dynamodb)
         print ('Response translate en:' + str(translation))
-        self.assertEqual("Learning more than DevOps and Cloud at UNIR", translation)
-        translation = get_translate("Aprender más cosas que DevOps y Cloud en la UNIR", "fr", self.dynamodb)
+        self.assertEqual("Learn DevOps and Cloud at UNIR", translation)
+        translation = translate_item(self.text, "fr", self.dynamodb)
         print ('Response translate fr:' + str(translation))
-        self.assertEqual("En savoir plus sur le DevOps et le Cloud chez UNIR", translation)
+        self.assertEqual("Apprenez DevOps et Cloud à l'UNIR", translation)
         print ('End: test_traslate_todo')
-
+        
+        
 @mock_dynamodb
 class TestDatabaseFunctionsError(unittest.TestCase):
     def setUp(self):
