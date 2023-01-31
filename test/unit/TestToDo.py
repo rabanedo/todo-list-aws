@@ -159,7 +159,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Response translate fr:' + str(translation))
         self.assertEqual("Apprenez DevOps et Cloud à l'UNIR", translation)
         print ('End: test_traslate_todo')
-
+        
+        
 @mock_dynamodb
 class TestDatabaseFunctionsError(unittest.TestCase):
     def setUp(self):
