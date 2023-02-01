@@ -152,7 +152,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.table = os.environ['DYNAMODB_TABLE']
         from src.todoList import get_translate
         print ('View Text:' + self.text)
-        print ('View Dynamo:' + self.dynamodb)
+        print ('View Dynamo:' + str(self.dynamodb))
         # Testing file functions
         translation = get_translate(self.text, "en", self.dynamodb)
         print ('Response translate en:' + str(translation))
