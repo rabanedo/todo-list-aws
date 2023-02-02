@@ -9,7 +9,7 @@ def translate(event, context):
     print(json.dumps(event['pathParameters'], indent=4))
     translation = str(
         todoList.get_translate(
-            event['pathParameters']['id'], 
+            event['pathParameters']['id'],
             event['pathParameters']['language']
         )
     )
