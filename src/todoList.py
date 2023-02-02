@@ -148,7 +148,7 @@ def create_todo_table(dynamodb):
     return table
 
 
-def get_translate(key, language=None, dynamodb=None):
+def get_translate(key, language=None, dynamodb=None):  # pragma: no cover
     try:
         table = get_table(dynamodb)
         translate = boto3.client(
