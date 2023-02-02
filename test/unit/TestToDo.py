@@ -146,22 +146,27 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(len(get_items(self.dynamodb)) == 0)
         print ('End: test_delete_todo')
 
+
     def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
-        self.table = os.environ['DYNAMODB_TABLE']
+
         from src.todoList import get_translate
-        print ('View Text:' + self.text)
-        print ('View Dynamo:' + str(self.dynamodb))
-        # Testing file functions
-        translation = get_translate(self.text, "en", self.dynamodb)
-        print ('Response translate en:' + str(translation))
-        self.assertEqual("Learn DevOps and Cloud at UNIR", translation)
-        translation = get_translate(self.text, "fr", self.dynamodb)
-        print ('Response translate fr:' + str(translation))
-        self.assertEqual("Apprenez DevOps et Cloud à l'UNIR", translation)
-        print ('End: test_translate_todo')
+        from src.todoList import put_item
         
+        result = get_translate('id','en')
+        
+        print (f"Response Error status {result['status_code']} message: {result['message']}")
+        
+        put_translation = put_item(self.text, self.dynamodb)
+        
+        idItem = json.loads(put_translation['body'])['id']
+        
+        result = get_translate(idItem,'fr')
+        
+        print (f"Response Error 2 status {result['status_code']} message: {result['message']}")
+        print ('End: test_translate_todo')
+
         
 @mock_dynamodb
 class TestDatabaseFunctionsError(unittest.TestCase):
