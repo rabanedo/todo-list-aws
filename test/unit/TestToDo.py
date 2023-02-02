@@ -146,26 +146,26 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(len(get_items(self.dynamodb)) == 0)
         print ('End: test_delete_todo')
 
-    def test_translate_todo(self):
+def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
-
         from src.todoList import get_translate
         from src.todoList import put_item
-        
-        result = get_translate('id','en')
-        
-        print (f"Response Error status {result['status_code']} message: {result['message']}")
-        
-        put_translation = put_item(self.text, self.dynamodb)
-        
-        idItem = json.loads(put_translation['body'])['id']
-        
-        result = get_translate(idItem,'fr')
-        
-        print (f"Response Error 2 status {result['status_code']} message: {result['message']}")
-        print ('End: test_translate_todo')
 
+        self.text = "Aprender DevOps y Cloud en la UNIR"
+        # Testing file functions
+        # Table mock
+        responsePut = put_item(self.text, self.dynamodb)
+        print ('Response put_item:' + str(responsePut))
+        idItem = json.loads(responsePut['body'])['id']
+        print ('Id item:' + idItem)
+        self.assertEqual(200, responsePut['statusCode'])
+        
+        responseGet = get_translate(idItem, "en", self.dynamodb)
+        print ('Response Get:' + str(responseGet))
+        self.assertIsNotNone(responseGet, "Test value is none.")
+        print ('End: test_translate_todo')
+        
         
 @mock_dynamodb
 class TestDatabaseFunctionsError(unittest.TestCase):
