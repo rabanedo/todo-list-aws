@@ -148,17 +148,22 @@ def create_todo_table(dynamodb):
     return table
 
 
-def get_translate(text, language, dynamodb=None):  # pragma: no cover
-    translate = boto3.client(
-        service_name='translate', region_name='us-east-1', use_ssl=True
-    )
+def translate(key, language, dynamodb=None):  # pragma: no cover
+    item = get_item(key)
     try:
+        if not item:
+            return {"status_code": 404, "message": f"Id {key} not present"}
+        translate = boto3.client(
+            service_name='translate', region_name='us-east-1', use_ssl=True
+        )
         result = translate.translate_text(
-            Text=text, SourceLanguageCode="auto", TargetLanguageCode=language
+            Text=item['text'], SourceLanguageCode="auto", TargetLanguageCode=language
         )
     except ClientError as e:
         print(e.response['Error']['Message'])
+        return {"status_code": 422, "message": e.response['Error']['Message']}
     else:
         translation = result.get('TranslatedText')
         print('Result translate:'+str(translation))
-        return translation
+        return {"status_code": 200, "message": translation}
+
