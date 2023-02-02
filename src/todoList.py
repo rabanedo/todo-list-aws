@@ -159,6 +159,4 @@ def get_translate(text, language, dynamodb=None):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        translation = result.get('TranslatedText')
-        print('Result translate:'+str(translation))
-        return translation
+        return result.get('TranslatedText')
