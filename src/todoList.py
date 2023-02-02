@@ -157,8 +157,8 @@ def translate(key, language, dynamodb=None):  # pragma: no cover
             service_name='translate', region_name='us-east-1', use_ssl=True
         )
         result = translate.translate_text(
-            Text=item['text'], 
-            SourceLanguageCode="auto", 
+            Text=item['text'],
+            SourceLanguageCode="auto",
             TargetLanguageCode=language
         )
     except ClientError as e:
