@@ -161,7 +161,6 @@ def get_translate(key, language, dynamodb=None):  # pragma: no cover
         )
         print('Result getItem:'+str(result))
         text = result['Item']['text']
-        
         result = translate.translate_text(
             Text=text,
             SourceLanguageCode="auto",
