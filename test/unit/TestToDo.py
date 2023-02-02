@@ -146,7 +146,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(len(get_items(self.dynamodb)) == 0)
         print ('End: test_delete_todo')
 
-
     def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
