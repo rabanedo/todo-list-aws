@@ -145,24 +145,21 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Item deleted succesfully')
         self.assertTrue(len(get_items(self.dynamodb)) == 0)
         print ('End: test_delete_todo')
-
-def test_translate_todo(self):
+        
+    def test_translate_todo(self):
         print ('---------------------')
         print ('Start: test_translate_todo')
+        self.table = os.environ['DYNAMODB_TABLE']
         from src.todoList import get_translate
-        from src.todoList import put_item
-
-        self.text = "Aprender DevOps y Cloud en la UNIR"
+        print ('View Text:' + self.text)
+        print ('View Dynamo:' + str(self.dynamodb))
         # Testing file functions
-        # Table mock
-        responsePut = put_item(self.text, self.dynamodb)
-        print ('Response put_item:' + str(responsePut))
-        idItem = json.loads(responsePut['body'])['id']
-        print ('Id item:' + idItem)
-        self.assertEqual(200, responsePut['statusCode'])
-        responseGet = get_translate(idItem, "en", self.dynamodb)
-        print ('Response Get:' + str(responseGet))
-        self.assertIsNotNone(responseGet, "Test value is none.")
+        translation = get_translate(self.text, "en", self.dynamodb)
+        print ('Response translate en:' + str(translation))
+        self.assertEqual("Learn DevOps and Cloud at UNIR", translation)
+        translation = get_translate(self.text, "fr", self.dynamodb)
+        print ('Response translate fr:' + str(translation))
+        self.assertEqual("Apprenez DevOps et Cloud à l'UNIR", translation)
         print ('End: test_translate_todo')
 
 
