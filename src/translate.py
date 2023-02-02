@@ -20,7 +20,7 @@ def translate(event, context):
             item["text"], cls=decimalencoder.DecimalEncoder, indent=4
         )
     )
-    if translation:
+    if item:
         response = {
             "statusCode": 200,
             "body": json.dumps(translation,
