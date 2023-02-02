@@ -148,7 +148,7 @@ def create_todo_table(dynamodb):
     return table
 
 
-def translate(key, language, dynamodb=None):  # pragma: no cover
+def get_translate(key, language, dynamodb=None):  # pragma: no cover
     item = get_item(key)
     try:
         if not item:
