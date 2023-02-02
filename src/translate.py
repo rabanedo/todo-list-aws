@@ -6,7 +6,7 @@ import todoList
 def translate(event, context):
     # create a response
     item = todoList.get_item(event['pathParameters']['id'])
-    print("##### Parámtros ##### \n\r")
+    print("##### Parámetros ##### \n\r")
     print(json.dumps(event['pathParameters'], indent=4))
     translation = str(
         todoList.get_translate(
