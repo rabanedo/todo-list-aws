@@ -1,1 +1,113 @@
-
+Started by user devops unir
+Obtained pipelines/PIPELINE-FULL-CD/Jenkinsfile from git git@github.com:rabanedo/todo-list-aws.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/PIPELINE-FULL-CD
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github
+Cloning the remote Git repository
+Cloning repository git@github.com:rabanedo/todo-list-aws.git
+ > git init /var/lib/jenkins/workspace/PIPELINE-FULL-CD # timeout=10
+Fetching upstream changes from git@github.com:rabanedo/todo-list-aws.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.0'
+using GIT_SSH to set credentials 
+Verifying host key using known hosts file
+ > git fetch --tags --force --progress -- git@github.com:rabanedo/todo-list-aws.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url git@github.com:rabanedo/todo-list-aws.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 3e727d5ef16f85bf252c8c8e802ace366c24c6bb (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 3e727d5ef16f85bf252c8c8e802ace366c24c6bb # timeout=10
+Commit message: "Quit   # pragma: no cover"
+ > git rev-list --no-walk a51cbd4aab229cedf0da5d05a48e92ff1254f37c # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Staging)
+[Pipeline] echo
+Starting staging job
+[Pipeline] build
+Scheduling project: PIPELINE-FULL-STAGING
+Starting building: PIPELINE-FULL-STAGING #104
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Merge)
+[Pipeline] sh
++ set -x
++ git branch -a
+* (HEAD detached at 3e727d5)
+  remotes/origin/develop
+  remotes/origin/master
+  remotes/origin/new-feature-one
++ git checkout -b develop origin/develop
+Previous HEAD position was 3e727d5 Quit   # pragma: no cover
+Switched to a new branch 'develop'
+branch 'develop' set up to track 'origin/develop'.
++ git checkout -b master origin/master
+Switched to a new branch 'master'
+branch 'master' set up to track 'origin/master'.
++ git merge develop
+Auto-merging src/todoList.py
+Merge made by the 'ort' strategy.
+ src/todoList.py | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+[Pipeline] sshagent
+[ssh-agent] Using credentials jenkins
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-Cyb8r6XQ9wH4/agent.3606
+SSH_AGENT_PID=3608
+Running ssh-add (command line suppressed)
+Identity added: /var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_14722944969307772043.key (/var/lib/jenkins/workspace/PIPELINE-FULL-CD@tmp/private_key_14722944969307772043.key)
+[ssh-agent] Started.
+[Pipeline] {
+[Pipeline] sh
++ git push origin master
+To github.com:rabanedo/todo-list-aws.git
+   3e727d5..1cbbb4e  master -> master
+[Pipeline] }
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 3608 killed;
+[ssh-agent] Stopped.
+[Pipeline] // sshagent
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Production)
+[Pipeline] echo
+Starting production job
+[Pipeline] build
+Scheduling project: PIPELINE-FULL-PRODUCTION
+Starting building: PIPELINE-FULL-PRODUCTION #16
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Clean env: delete dir
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
